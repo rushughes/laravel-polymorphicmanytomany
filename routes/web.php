@@ -48,3 +48,10 @@ Route::get('/update/{id}/{tag_id}', function ($id, $tag_id) {
   // $post->tags()->attach($tag);
   $post->tags()->sync($tag);
 });
+
+Route::get('/delete/{id}', function ($id) {
+  $post = Post::findOrFail($id);
+  foreach($post->tags as $tag) {
+    $tag->whereId('1')->delete();
+  }
+});
